@@ -208,13 +208,25 @@ body {
 .hero-ready .stagger:nth-child(4) { transition-delay: 450ms; }
 .hero-ready .stagger:nth-child(5) { transition-delay: 520ms; }
 
+/* Scroll reveal — driven by useReveal's IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 560ms var(--ease-out-soft), transform 560ms var(--ease-out-soft);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
   .hero-line > span,
-  .stagger {
+  .stagger,
+  .reveal {
     opacity: 1;
     transform: none;
   }

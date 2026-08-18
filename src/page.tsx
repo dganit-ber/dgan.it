@@ -1,6 +1,6 @@
-import { Nav } from "@/components/Nav";
-import { Hero } from "@/components/Hero";
-import { StatBand } from "@/components/StatBand";
+import { Hero } from './components/Hero';
+import { Nav } from './components/Nav';
+import { StatBand } from './components/StatBand';
 
 export default function Home() {
   return (
