@@ -7,13 +7,25 @@
   --color-border: #222222;
   --color-border-subtle: #1a1a1a;
   --color-text: #e5e5e5;
+  --color-text-muted: #a3a3a3;
   --color-muted: #737373;
   --color-accent: #10b981;
   --color-accent-dim: #059669;
   --color-accent-glow: rgba(16, 185, 129, 0.15);
+  --color-accent-ink: #0a0a0a;
+
+  /* Aliases so components written against an ink/paper naming
+     (e.g. Hero) resolve to the same dark palette as everything else. */
+  --color-ink: var(--color-text);
+  --color-paper: var(--color-bg);
+  --color-mute: var(--color-text-muted);
+  --color-line: var(--color-border);
 
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 @keyframes fade-in-up {
@@ -143,4 +155,67 @@ body {
   pointer-events: none;
   z-index: 0;
   opacity: 0.4;
+}
+
+/* Hero name — each line clips its own span sliding up from below.
+   The wrapper gets extra bottom padding (clawed back with a matching
+   negative margin) so descenders like the "g" bowl aren't cropped by
+   the overflow-hidden mask. */
+.hero-line {
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.hero-line > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 820ms var(--ease-out-soft);
+  will-change: transform;
+}
+.hero-ready .hero-line > span {
+  transform: translateY(0);
+}
+.hero-ready .hero-line:nth-child(2) > span {
+  transition-delay: 90ms;
+}
+
+/* Signature: blinking block caret */
+.caret {
+  display: inline-block;
+  width: 0.13em;
+  height: 0.72em;
+  margin-left: 0.07em;
+  background: var(--color-accent);
+  transform: translateY(0.02em);
+  animation: caret-blink 1.15s steps(1, end) infinite;
+}
+@keyframes caret-blink {
+  0%, 52% { opacity: 1; }
+  53%, 100% { opacity: 0; }
+}
+
+/* Entrance cascade — one class on the parent drives the whole sequence */
+.stagger {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.hero-ready .stagger {
+  opacity: 1;
+  transform: none;
+  transition: opacity 520ms var(--ease-out-soft), transform 520ms var(--ease-out-soft);
+}
+.hero-ready .stagger:nth-child(2) { transition-delay: 300ms; }
+.hero-ready .stagger:nth-child(3) { transition-delay: 380ms; }
+.hero-ready .stagger:nth-child(4) { transition-delay: 450ms; }
+.hero-ready .stagger:nth-child(5) { transition-delay: 520ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-line > span,
+  .stagger {
+    opacity: 1;
+    transform: none;
+  }
 }

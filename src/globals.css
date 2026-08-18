@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* Theme lives on [data-theme] so the toggle is a single attribute swap.
+   Kept as a custom variant for the rare escape hatch — most colour swapping
+   happens through the variables below, so `dark:` is seldom needed. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-ink: #14161a;
+  --color-paper: #fbfaf7;
+  --color-surface: #f2efe9;
+  --color-accent: #1f4bd8;
+  --color-accent-ink: #ffffff;
+  --color-mute: #6b7078;
+  --color-line: #e4e0d8;
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+[data-theme="dark"] {
+  --color-ink: #f2f1ee;
+  --color-paper: #0e1013;
+  --color-surface: #181b20;
+  --color-accent: #6e93ff;
+  --color-accent-ink: #0e1013;
+  --color-mute: #9aa0a8;
+  --color-line: #262a31;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition:
+      background-color 420ms var(--ease-out-soft),
+      color 420ms var(--ease-out-soft);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Effects. These stay in CSS rather than class strings because the
+   stagger delays and clip reveal are far more legible here.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Nav pill — blur + shrink on scroll */
+  .nav-pill {
+    background-color: color-mix(in srgb, var(--color-paper) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    transition:
+      height 180ms var(--ease-out-soft),
+      box-shadow 260ms var(--ease-out-soft),
+      border-color 260ms var(--ease-out-soft),
+      background-color 420ms var(--ease-out-soft);
+  }
+  .nav-stuck .nav-pill {
+    height: 56px;
+    box-shadow: 0 10px 34px -14px rgb(0 0 0 / 0.28);
+    border-color: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  }
+
+  /* Nav link underline wipe */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 2px;
+    height: 1.5px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms var(--ease-out-soft);
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Hero name — each line clips its own span sliding up from below */
+  .hero-line > span {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 820ms var(--ease-out-soft);
+    will-change: transform;
+  }
+  .hero-ready .hero-line > span {
+    transform: translateY(0);
+  }
+  .hero-ready .hero-line:nth-child(2) > span {
+    transition-delay: 90ms;
+  }
+
+  /* Signature: blinking block caret */
+  .caret {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.72em;
+    margin-left: 0.07em;
+    background: var(--color-accent);
+    transform: translateY(0.02em);
+    animation: caret-blink 1.15s steps(1, end) infinite;
+  }
+  @keyframes caret-blink {
+    0%,
+    52% {
+      opacity: 1;
+    }
+    53%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Entrance cascade — one class on the parent drives the whole sequence */
+  .stagger {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .hero-ready .stagger {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 520ms var(--ease-out-soft),
+      transform 520ms var(--ease-out-soft);
+  }
+  .hero-ready .stagger:nth-child(2) {
+    transition-delay: 300ms;
+  }
+  .hero-ready .stagger:nth-child(3) {
+    transition-delay: 380ms;
+  }
+  .hero-ready .stagger:nth-child(4) {
+    transition-delay: 450ms;
+  }
+  .hero-ready .stagger:nth-child(5) {
+    transition-delay: 520ms;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 560ms var(--ease-out-soft),
+      transform 560ms var(--ease-out-soft);
+  }
+
+  /* Mobile sheet */
+  .sheet {
+    transform: translateY(-102%);
+    transition: transform 380ms var(--ease-out-soft);
+  }
+  .sheet-open {
+    transform: translateY(0);
+  }
+
+  /* Burger morph */
+  .burger-bar {
+    transition:
+      transform 260ms var(--ease-out-soft),
+      opacity 200ms;
+  }
+  .burger-open .burger-bar:nth-child(1) {
+    transform: translateY(6.6px) rotate(45deg);
+  }
+  .burger-open .burger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .burger-open .burger-bar:nth-child(3) {
+    transform: translateY(-6.6px) rotate(-45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-line > span,
+  .stagger,
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
