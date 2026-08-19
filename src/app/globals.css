@@ -167,6 +167,7 @@ body {
 }
 .hero-line > span {
   display: block;
+  width: fit-content;
   transform: translateY(105%);
   transition: transform 820ms var(--ease-out-soft);
   will-change: transform;
@@ -176,21 +177,6 @@ body {
 }
 .hero-ready .hero-line:nth-child(2) > span {
   transition-delay: 90ms;
-}
-
-/* Signature: blinking block caret */
-.caret {
-  display: inline-block;
-  width: 0.13em;
-  height: 0.72em;
-  margin-left: 0.07em;
-  background: var(--color-accent);
-  transform: translateY(0.02em);
-  animation: caret-blink 1.15s steps(1, end) infinite;
-}
-@keyframes caret-blink {
-  0%, 52% { opacity: 1; }
-  53%, 100% { opacity: 0; }
 }
 
 /* Entrance cascade — one class on the parent drives the whole sequence */
@@ -217,6 +203,23 @@ body {
   opacity: 1;
   transform: none;
   transition: opacity 560ms var(--ease-out-soft), transform 560ms var(--ease-out-soft);
+}
+
+/* Horizontal company marquee — the list is duplicated in the markup so a
+   -50% translate loops seamlessly back to the start. */
+@keyframes marquee-horizontal {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track-h {
+  animation: marquee-horizontal 32s linear infinite;
+}
+.marquee-mask-h:hover .marquee-track-h {
+  animation-play-state: paused;
+}
+.marquee-mask-h {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

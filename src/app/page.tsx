@@ -1,4 +1,5 @@
 import About from '../components/About';
+import CompanyMarquee from '../components/CompanyMarquee';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import { Hero } from '../components/Hero';
@@ -22,6 +23,7 @@ export default function Home() {
         <Navbar />
         <main>
           <Hero />
+          <CompanyMarquee />
           <About />
           <Skills />
           <Projects />

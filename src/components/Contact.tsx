@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 export default function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-4xl px-6 py-24">
+    <section id="contact" className="mx-auto max-w-6xl px-6 py-24">
       <Reveal>
         <span className="mb-3 flex items-center gap-2 font-mono text-xs font-medium tracking-[0.3em] text-accent uppercase">
           <span className="h-1.5 w-1.5 animate-glow-pulse rounded-full bg-accent" />
