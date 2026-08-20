@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export default function Reveal({
   children,
-  className = "",
+  className = '',
   delay = 0,
 }: {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export default function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -36,7 +36,7 @@ export default function Reveal({
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
       className={`transition-all duration-700 ease-out ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       } ${className}`}
     >
       {children}

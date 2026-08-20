@@ -18,14 +18,35 @@ export const site = {
   ],
 
   socials: [
-    { label: 'GitHub', href: 'https://github.com/', icon: 'github', color: '#181717' },
-    { label: 'ff-library', href: 'https://ff-library.com', icon: 'book', color: '#d97706' },
+    {
+      label: 'GitHub',
+      href: 'https://github.com/dganit-ber',
+      icon: 'github',
+      color: '#181717',
+    },
+    {
+      label: 'ff-library',
+      href: 'https://ff-library.com',
+      icon: 'book',
+      color: '#d97706',
+    },
     { label: 'Chrome Web Store', href: '#', icon: 'chrome', color: '#4285f4' },
     { label: 'Firefox Add-ons', href: '#', icon: 'firefox', color: '#ff7139' },
-    { label: 'Email', href: 'mailto:you@example.com', icon: 'mail', color: '#10b981' },
+    {
+      label: 'Email',
+      href: 'mailto:you@example.com',
+      icon: 'mail',
+      color: '#10b981',
+    },
   ],
 
-  linkedin: 'https://linkedin.com/in/',
+  linkedin: 'https://linkedin.com/in/dganite',
+
+  hobbies: [
+    { id: 'bookbinding', label: 'Bookbinding' },
+    { id: 'stained-glass', label: 'Stained Glass' },
+    { id: 'water-marbling', label: 'Water Marbling' },
+  ],
 
   companies: [
     { name: 'The Fan Fiction Library', mark: 'FL', domain: 'ff-library.com' },
@@ -55,11 +76,17 @@ export const site = {
     email: 'dganite@gmail.com',
     linkedin: 'linkedin.com/in/dganite',
 
-    summary:
-      'Frontend engineer with 3.5 years of production React and TypeScript experience across complex, component-driven SPAs. Recently shipped a full-stack Next.js/TypeScript app end-to-end: auth, REST API, database, and automated deployment, owning it from first commit to production. Backed by 5 years of QA and test automation (ISTQB-certified), bringing a strong testing and quality mindset to frontend delivery.',
+    summary: `I'm a frontend developer in Berlin working mostly in React, TypeScript, and Next.js. Before I wrote features, I spent five years breaking them: I came up through QA and test automation, and that background still shapes how I build. I think about edge cases early, I write code that's easier to debug at 2am, and I've never once been surprised that the thing shipped on Friday broke over the weekend.
+
+    Outside of client work I build and maintain ff-library.com, a fan fiction library with a companion browser extension for Chrome and Firefox. It has grown to over 700 registered users and 115,000 logged entries, which means I own the whole thing end to end: the Next.js frontend, the Postgres schema, the OAuth flow, the extension that has to keep working across three browsers, and the support emails when something goes sideways. It taught me more about tradeoffs than any tutorial could.
+
+    I care about interfaces that feel obvious, code other people can read six months later, and shipping things that actually get used.`,
 
     skills: [
-      { category: 'Languages & Frameworks', items: ['React', 'Next.js', 'TypeScript', 'JavaScript (ES6+)'] },
+      {
+        category: 'Languages & Frameworks',
+        items: ['React', 'Next.js', 'TypeScript', 'JavaScript (ES6+)'],
+      },
       {
         category: 'Frontend',
         items: [
@@ -74,18 +101,45 @@ export const site = {
       },
       {
         category: 'Testing',
-        items: ['ISTQB-certified test design', 'Test automation & manual testing (5 yrs QA)', 'Quality-first mindset'],
+        items: [
+          'ISTQB-certified test design',
+          'Test automation & manual testing (5 yrs QA)',
+          'Quality-first mindset',
+        ],
       },
-      { category: 'Backend & Data', items: ['REST APIs', 'PostgreSQL (via Supabase)', 'Authentication', 'Database schema design'] },
-      { category: 'Tools & Practices', items: ['Git/GitHub', 'Vercel', 'CI/CD', 'Code reviews', 'Agile/Scrum'] },
-      { category: 'Languages', items: ['Hebrew (native)', 'English (near-native)', 'German (working knowledge)'] },
-      { category: 'Previously used', items: ['Redux', 'GraphQL', 'Vue.js', 'Node.js/Express'] },
+      {
+        category: 'Backend & Data',
+        items: [
+          'REST APIs',
+          'PostgreSQL (via Supabase)',
+          'Authentication',
+          'Database schema design',
+        ],
+      },
+      {
+        category: 'Tools & Practices',
+        items: ['Git/GitHub', 'Vercel', 'CI/CD', 'Code reviews', 'Agile/Scrum'],
+      },
+      {
+        category: 'Languages',
+        items: [
+          'Hebrew (native)',
+          'English (near-native)',
+          'German (working knowledge)',
+        ],
+      },
+      {
+        category: 'Previously used',
+        items: ['Redux', 'GraphQL', 'Vue.js', 'Node.js/Express'],
+      },
     ],
 
     experience: [
       {
         role: 'Full-Stack Developer',
-        company: 'The Fan Fiction Library (Independent Project)',
+        company: 'The Fan Fiction Library',
+        companyUrl: 'https://ff-library.com',
+        companyNote: 'Independent Project',
         period: '03/2024 – Present',
         location: 'Berlin, DE',
         bullets: [
@@ -98,6 +152,8 @@ export const site = {
       {
         role: 'Frontend Developer',
         company: 'Interhyp',
+        companyUrl: null,
+        companyNote: null,
         period: '09/2023 – 02/2024',
         location: 'Berlin, DE (Remote)',
         bullets: [
@@ -108,6 +164,8 @@ export const site = {
       {
         role: 'Frontend Developer',
         company: 'McMakler',
+        companyUrl: null,
+        companyNote: null,
         period: '12/2021 – 08/2023',
         location: 'Berlin, DE (Remote)',
         bullets: [
@@ -118,6 +176,8 @@ export const site = {
       {
         role: 'Frontend Developer',
         company: 'Hochfrequenz',
+        companyUrl: null,
+        companyNote: null,
         period: '06/2020 – 12/2021',
         location: 'Berlin, DE (Remote)',
         bullets: [
@@ -128,6 +188,8 @@ export const site = {
       {
         role: 'QA / Test Engineer',
         company: 'Various (DigiDesk24, yourDelivery/Lieferando, Auto1)',
+        companyUrl: null,
+        companyNote: null,
         period: '09/2016 – 09/2019',
         location: 'Berlin, DE / Remote',
         bullets: [
@@ -140,7 +202,8 @@ export const site = {
       {
         title: 'Full-Stack Web Development: Spiced Academy',
         period: '11/2019 – 02/2020',
-        description: '12-week intensive course: HTML5, CSS, JavaScript, and Single-Page Applications.',
+        description:
+          '12-week intensive course: HTML5, CSS, JavaScript, and Single-Page Applications.',
       },
       {
         title: 'ISTQB Foundation Level',

@@ -51,7 +51,7 @@ export function StatBand() {
   return (
     <section
       id='work'
-      className='mx-auto w-full max-w-[1320px] px-5 pb-20 sm:px-10 lg:px-18 lg:pb-30'
+      className='StatBand mx-auto w-full max-w-[1320px] px-5 pb-20 sm:px-10 lg:px-18 lg:pb-30'
     >
       <div
         ref={ref}

@@ -19,7 +19,8 @@ export function Hero() {
   }, []);
 
   const iIndex = site.firstName.indexOf('i');
-  const beforeI = iIndex >= 0 ? site.firstName.slice(0, iIndex) : site.firstName;
+  const beforeI =
+    iIndex >= 0 ? site.firstName.slice(0, iIndex) : site.firstName;
   const afterI = iIndex >= 0 ? site.firstName.slice(iIndex + 1) : '';
 
   return (
@@ -50,7 +51,8 @@ export function Hero() {
       </h1>
 
       <p className='stagger mb-4 max-w-none text-[clamp(14px,min(1.7vw,2.1svh),20px)] tracking-[-0.015em] lg:mb-5 lg:max-w-[24ch]'>
-        {site.role} <span className='text-mute'>{site.roleTail}</span>
+        {site.role}
+        <span className='block text-mute'>{site.roleTail}</span>
       </p>
 
       <div className='stagger mb-3 flex flex-wrap gap-2.5 lg:mb-4'>
@@ -65,18 +67,19 @@ export function Hero() {
       </div>
 
       <div className='stagger mb-5 flex flex-wrap gap-2.5 lg:mb-6'>
-        {site.socials.map((s) => {
-          const Icon = iconMap[s.icon as IconName];
+        {site.socials.map((social) => {
+          const Icon = iconMap[social.icon as IconName];
           return (
             <a
-              key={s.label}
-              href={s.href}
-              aria-label={s.label}
-              className='group grid size-10 place-items-center rounded-full border border-line transition-all duration-200 hover:-translate-y-[3px] hover:border-ink hover:bg-ink'
+              key={social.label}
+              href={social.href}
+              aria-label={social.label}
+              className='group grid size-10 place-items-center rounded-full border border-line transition-all duration-200 
+              hover:-translate-y-0.75 hover:border-ink hover:bg-ink'
             >
               <Icon
-                className='size-[17px] grayscale transition-[filter] duration-500 ease-out group-hover:grayscale-0'
-                style={{ color: s.color }}
+                className='size-4.25 grayscale transition-[filter] duration-500 ease-out group-hover:grayscale-0'
+                style={{ color: social.color }}
               />
             </a>
           );
@@ -85,7 +88,7 @@ export function Hero() {
 
       <div className='stagger flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
         <Link
-          href='/#work'
+          href='/projects'
           className='inline-flex h-12 items-center justify-center rounded-full bg-accent px-8 text-base font-semibold text-accent-ink transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_var(--color-accent)]'
         >
           See the work

@@ -37,6 +37,19 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before paint so the correct theme is applied without a flash.
+// Dark is the default (no attribute needed), so this only ever has to
+// add `data-theme="light"` — nothing to do for the common case.
+const themeScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    if (theme === 'light') document.documentElement.dataset.theme = 'light';
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,9 +58,13 @@ export default function RootLayout({
   return (
     <html
       lang='en'
+      suppressHydrationWarning
       className={`${archivo.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {children}
+      </body>
     </html>
   );
 }
