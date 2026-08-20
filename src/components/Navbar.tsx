@@ -30,7 +30,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`animate-fade-in-up fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'glass border-b border-border py-4 shadow-lg shadow-black/20'
           : 'py-5'

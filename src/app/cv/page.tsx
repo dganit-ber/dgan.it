@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import CvNav from '../../components/CvNav';
 import PageShell from '../../components/PageShell';
 import Paragraphs from '../../components/Paragraphs';
+import { WhatsappIcon } from '../../components/icons';
 import { site } from '../site.config';
 
 const fullName = `${site.firstName} ${site.lastName}`;
@@ -42,7 +43,18 @@ export default function CvPage() {
               >
                 {site.cv.email}
               </a>
-              <span>{site.cv.phone}</span>
+              <span className='flex items-center gap-1.5'>
+                {site.cv.phone}
+                <a
+                  href={`https://wa.me/${site.cv.phone.replace(/\D/g, '')}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label='Message on WhatsApp'
+                  className='grid size-4 shrink-0 place-items-center rounded-full bg-[#25D366] text-white transition-transform hover:scale-110'
+                >
+                  <WhatsappIcon className='size-2.5' />
+                </a>
+              </span>
               <span>{site.cv.location}</span>
               <a
                 href={`https://${site.cv.linkedin}`}

@@ -121,7 +121,7 @@ export default function HobbyShowcase() {
     setSlide((s) => (s + dir + IMAGES_PER_HOBBY) % IMAGES_PER_HOBBY);
 
   return (
-    <div onMouseLeave={() => setOpen(false)}>
+    <div className='relative' onMouseLeave={() => setOpen(false)}>
       <div className='flex flex-nowrap gap-2 overflow-x-auto pb-1'>
         {site.hobbies.map((hobby) => (
           <button
@@ -151,14 +151,13 @@ export default function HobbyShowcase() {
       </div>
 
       <div
-        className={`grid transition-all duration-500 ease-out ${
+        className={`absolute bottom-full left-0 z-20 mb-3 w-full max-w-sm transition-all duration-300 ease-out ${
           open
-            ? 'mt-6 grid-rows-[1fr] opacity-100'
-            : 'grid-rows-[0fr] opacity-0'
+            ? 'translate-y-0 opacity-100'
+            : 'pointer-events-none translate-y-2 opacity-0'
         }`}
       >
-        <div className='overflow-hidden'>
-          <div className='relative aspect-4/5 w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface'>
+        <div className='relative aspect-4/5 w-full overflow-hidden rounded-2xl border border-line bg-surface shadow-xl shadow-black/20'>
             {images.map((src, i) => (
               // eslint-disable-next-line @next/next/no-img-element -- placeholder imagery, swapped for real photos later
               <img
@@ -196,7 +195,6 @@ export default function HobbyShowcase() {
                 />
               ))}
             </div>
-          </div>
         </div>
       </div>
     </div>

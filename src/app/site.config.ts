@@ -33,8 +33,15 @@ export const site = {
     { label: 'Chrome Web Store', href: '#', icon: 'chrome', color: '#4285f4' },
     { label: 'Firefox Add-ons', href: '#', icon: 'firefox', color: '#ff7139' },
     {
+      // Keep in sync with cv.phone below — wa.me needs digits only, no "+".
+      label: 'WhatsApp',
+      href: 'https://wa.me/4917632631449',
+      icon: 'whatsapp',
+      color: '#25D366',
+    },
+    {
       label: 'Email',
-      href: 'mailto:you@example.com',
+      href: 'mailto:dganite@gmail.com',
       icon: 'mail',
       color: '#10b981',
     },
