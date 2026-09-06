@@ -101,9 +101,13 @@ export default function HobbyShowcase() {
   const [open, setOpen] = useState(false);
   const [slide, setSlide] = useState(0);
 
-  useEffect(() => {
+  // Selecting a hobby opens the panel and restarts its slideshow from the
+  // first photo — done here rather than in an effect so it's a single render.
+  const selectHobby = (id: HobbyId) => {
+    setActive(id);
+    setOpen(true);
     setSlide(0);
-  }, [active]);
+  };
 
   // Re-armed on every slide change (auto or manual) so clicking an arrow
   // doesn't get immediately overridden by the auto-advance tick.
@@ -126,18 +130,9 @@ export default function HobbyShowcase() {
         {site.hobbies.map((hobby) => (
           <button
             key={hobby.id}
-            onMouseEnter={() => {
-              setActive(hobby.id);
-              setOpen(true);
-            }}
-            onFocus={() => {
-              setActive(hobby.id);
-              setOpen(true);
-            }}
-            onClick={() => {
-              setActive(hobby.id);
-              setOpen(true);
-            }}
+            onMouseEnter={() => selectHobby(hobby.id)}
+            onFocus={() => selectHobby(hobby.id)}
+            onClick={() => selectHobby(hobby.id)}
             className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-all duration-200 hover:scale-105 ${
               active === hobby.id && open
                 ? 'border-accent/50 bg-accent/10 text-accent'
