@@ -44,7 +44,7 @@ export function Nav() {
         style={{ pointerEvents: 'none' }}
       >
         <div
-          className='nav-pill flex h-16 w-full max-w-[1180px] items-center gap-1.5 rounded-full border border-line pr-2 pl-2.5 sm:gap-3 sm:pr-2.5 sm:pl-4'
+          className='nav-pill flex h-16 w-full max-w-295 items-center gap-1.5 rounded-full border border-line pr-2 pl-2.5 sm:gap-3 sm:pr-2.5 sm:pl-4'
           style={{ pointerEvents: 'auto' }}
         >
           <button
@@ -53,9 +53,9 @@ export function Nav() {
             className='grid size-9.5 flex-none place-items-center rounded-full text-mute transition-colors hover:bg-surface hover:text-ink'
           >
             {dark ? (
-              <SunIcon className='size-[18px]' />
+              <SunIcon className='size-4.5' />
             ) : (
-              <MoonIcon className='size-[18px]' />
+              <MoonIcon className='size-4.5' />
             )}
           </button>
 
@@ -79,10 +79,10 @@ export function Nav() {
               open ? 'burger-open' : ''
             }`}
           >
-            <span className='flex flex-col gap-[5px]'>
-              <span className='burger-bar block h-[1.6px] w-[17px] bg-current' />
-              <span className='burger-bar block h-[1.6px] w-[17px] bg-current' />
-              <span className='burger-bar block h-[1.6px] w-[17px] bg-current' />
+            <span className='flex flex-col gap-1.25'>
+              <span className='burger-bar block h-[1.6px] w-[4.5] bg-current' />
+              <span className='burger-bar block h-[1.6px] w-[4.5] bg-current' />
+              <span className='burger-bar block h-[1.6px] w-[4.5] bg-current' />
             </span>
           </button>
 
@@ -92,14 +92,14 @@ export function Nav() {
               aria-label='GitHub'
               className='hidden size-10.5 place-items-center rounded-full bg-[#181717] text-white transition-transform hover:-translate-y-0.5 hover:scale-105 sm:grid'
             >
-              <GithubIcon className='size-[18px]' />
+              <GithubIcon className='size-4.5' />
             </a>
             <a
               href={site.linkedin}
               aria-label='LinkedIn'
               className='grid size-9.5 place-items-center rounded-full bg-[#0A66C2] text-white transition-transform hover:-translate-y-0.5 hover:scale-105 sm:size-10.5'
             >
-              <LinkedinIcon className='size-[18px]' />
+              <LinkedinIcon className='size-4.5' />
             </a>
             <a
               href={`mailto:${site.email}`}

@@ -25,7 +25,7 @@ export function Hero() {
 
   return (
     <header
-      className={`mx-auto flex w-full max-w-6xl flex-col px-6 pt-24 pb-10 ${
+      className={`mx-auto flex w-full max-w-6xl flex-col px-6 pt-24 pb-5 ${
         ready ? 'hero-ready' : ''
       }`}
     >
@@ -66,20 +66,27 @@ export function Hero() {
         ))}
       </div>
 
-      <div className='stagger mb-5 flex flex-wrap gap-2.5 lg:mb-6'>
+      <div className='heroIcons stagger mb-5 flex flex-wrap gap-2.5 lg:mb-6'>
         {site.socials.map((social) => {
           const Icon = iconMap[social.icon as IconName];
+          // GitHub's brand color is near-black, so it vanishes on the dark
+          // theme and again on the inked hover state. Render it in the theme
+          // foreground color instead (ink normally, paper on hover) so it
+          // always contrasts; the colorful icons keep their reveal-on-hover.
+          const mono = social.icon === 'github';
           return (
             <a
               key={social.label}
               href={social.href}
               aria-label={social.label}
-              className='group grid size-10 place-items-center rounded-full border border-line transition-all duration-200 
-              hover:-translate-y-0.75 hover:border-ink hover:bg-ink'
+              className='group grid size-10 place-items-center rounded-full border border-line text-ink transition-all duration-200
+              hover:-translate-y-0.75 hover:border-ink hover:bg-ink hover:text-paper'
             >
               <Icon
-                className='size-4.25 grayscale transition-[filter] duration-500 ease-out group-hover:grayscale-0'
-                style={{ color: social.color }}
+                className={`size-4.25 transition-[filter] duration-500 ease-out ${
+                  mono ? '' : 'grayscale group-hover:grayscale-0'
+                }`}
+                style={mono ? undefined : { color: social.color }}
               />
             </a>
           );

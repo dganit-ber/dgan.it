@@ -24,16 +24,8 @@ export const site = {
       icon: 'github',
       color: '#181717',
     },
+
     {
-      label: 'ff-library',
-      href: 'https://ff-library.com',
-      icon: 'book',
-      color: '#d97706',
-    },
-    { label: 'Chrome Web Store', href: '#', icon: 'chrome', color: '#4285f4' },
-    { label: 'Firefox Add-ons', href: '#', icon: 'firefox', color: '#ff7139' },
-    {
-      // Keep in sync with cv.phone below — wa.me needs digits only, no "+".
       label: 'WhatsApp',
       href: 'https://wa.me/4917632631449',
       icon: 'whatsapp',
@@ -43,7 +35,13 @@ export const site = {
       label: 'Email',
       href: 'mailto:dganite@gmail.com',
       icon: 'mail',
-      color: '#10b981',
+      color: '#BA3B3C',
+    },
+    {
+      label: 'LinkedIn',
+      href: 'https://linkedin.com/in/dganite',
+      icon: 'linkedin',
+      color: '#0A66C2',
     },
   ],
 

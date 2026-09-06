@@ -74,7 +74,7 @@ export default function Navbar() {
         </ul>
 
         {/* Right: social badges (desktop only) */}
-        <div className='hidden items-center gap-2 md:flex'>
+        <div className='navIcons hidden items-center gap-2 md:flex'>
           {site.socials.map((social) => {
             const Icon = iconMap[social.icon as IconName];
             return (
@@ -135,9 +135,18 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
+      {menuOpen && (
+        <button
+          type='button'
+          aria-label='Close menu'
+          tabIndex={-1}
+          onClick={() => setMenuOpen(false)}
+          className='fixed inset-0 -z-10 cursor-default md:hidden'
+        />
+      )}
+
       <div
-        className={`overflow-hidden transition-all duration-300 md:hidden ${
+        className={`overflow-hidden border-b border-border bg-bg shadow-lg shadow-black/20 transition-all duration-300 md:hidden ${
           menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -176,7 +185,7 @@ export default function Navbar() {
                 style={{ backgroundColor: social.color }}
                 className='grid size-8 shrink-0 place-items-center rounded-full text-white'
               >
-                <Icon className='size-4' />
+                <Icon className=' icon size-4' />
               </a>
             );
           })}
