@@ -396,13 +396,13 @@ export default function FfLibraryCaseStudy() {
 
                     <div className='mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2'>
                       <MediaPlaceholder
-                        className='aspect-[9/16]'
+                        className='aspect-9/16'
                         tag='Media placeholder — 03'
                         what='Mobile: collection page, cards stacked.'
                         spec='9:16 · device frame optional'
                       />
                       <MediaPlaceholder
-                        className='aspect-[9/16]'
+                        className='aspect-9/16'
                         tag='Media placeholder — 04'
                         what='Mobile: work card menu open with the note dialog on top — the portal fix in action.'
                         spec='9:16 · device frame optional'
@@ -423,7 +423,7 @@ export default function FfLibraryCaseStudy() {
                     </Block>
 
                     <MediaPlaceholder
-                      className='mb-8 aspect-[4/3]'
+                      className='mb-8 aspect-4/3'
                       tag='Media placeholder — 05'
                       what='An exported share card, ideally shown next to the live card it was generated from.'
                       spec='4:3 · PNG'
@@ -453,7 +453,7 @@ export default function FfLibraryCaseStudy() {
                     </div>
 
                     <MediaPlaceholder
-                      className='mb-8 aspect-[16/7]'
+                      className='mb-8 aspect-16/7'
                       tag='Media placeholder — 06'
                       what='Architecture diagram: browser + extension → Next.js (server components, server actions, extension API routes) → Supabase, with the AO3 scrape path and Resend branching off.'
                       spec='16:7 · SVG preferred so it scales'

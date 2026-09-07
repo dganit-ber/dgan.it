@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { iconMap, type IconName } from './icons';
+import { iconMap, LocationIcon, type IconName } from './icons';
 import RoamingDot from './RoamingDot';
 import { site } from '../app/site.config';
 
@@ -54,6 +54,11 @@ export function Hero() {
         {site.role}
         <span className='block text-mute'>{site.roleTail}</span>
       </p>
+
+      <div className='stagger mb-3 flex items-center gap-1.5 text-sm font-medium text-mute lg:mb-4'>
+        <LocationIcon className='size-3.5' />
+        Based in {site.cv.location}
+      </div>
 
       <div className='stagger mb-3 flex flex-wrap gap-2.5 lg:mb-4'>
         {site.tags.map((tag) => (

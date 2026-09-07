@@ -7,7 +7,14 @@ export const site = {
   url: 'dgan.it',
   email: 'hello@dgan.it',
 
-  tags: ['React', 'TypeScript', 'Next.js', 'Testing', 'Accessibility'],
+  tags: [
+    'React',
+    'TypeScript',
+    'Next.js',
+    'Testing',
+    'Accessibility',
+    'ClaudCode',
+  ],
 
   nav: [
     { label: 'Work', href: '/#work' },
