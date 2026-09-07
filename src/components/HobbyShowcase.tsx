@@ -1,21 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { site } from '../app/site.config';
 
-const IMAGES_PER_HOBBY = 4;
 const SLIDE_MS = 2200;
-
-// Placeholder imagery until real photos are ready — swap these for actual
-// shots of finished pieces per hobby (e.g. an array of local image paths).
-function placeholderImages(hobbyId: string) {
-  return Array.from(
-    { length: IMAGES_PER_HOBBY },
-    (_, i) => `https://picsum.photos/seed/dgan-${hobbyId}-${i}/640/800`,
-  );
-}
+const CLOSE_DELAY_MS = 120;
 
 type HobbyId = (typeof site.hobbies)[number]['id'];
+
+// Finished-piece photos per hobby, in public/hobbies/<id>/<n>.jpg. The folder
+// name matches the hobby id, so adding a photo is: drop the file in and bump
+// the count here.
+const HOBBY_PHOTO_COUNT: Record<HobbyId, number> = {
+  bookbinding: 4,
+  'stained-glass': 3,
+  'water-marbling': 4,
+};
+
+function hobbyImages(id: HobbyId) {
+  return Array.from(
+    { length: HOBBY_PHOTO_COUNT[id] },
+    (_, i) => `/hobbies/${id}/${i + 1}.jpg`,
+  );
+}
 
 function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
   return (
@@ -100,32 +108,53 @@ export default function HobbyShowcase() {
   const [active, setActive] = useState<HobbyId>(site.hobbies[0].id);
   const [open, setOpen] = useState(false);
   const [slide, setSlide] = useState(0);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+
+  // Close on a short delay so crossing the gap between the pills and the
+  // panel above them doesn't dismiss it mid-reach.
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpen(false), CLOSE_DELAY_MS);
+  };
+
+  useEffect(() => cancelClose, []);
 
   // Selecting a hobby opens the panel and restarts its slideshow from the
   // first photo — done here rather than in an effect so it's a single render.
   const selectHobby = (id: HobbyId) => {
+    cancelClose();
     setActive(id);
     setOpen(true);
     setSlide(0);
   };
 
+  const images = hobbyImages(active);
+  const count = images.length;
+  const activeLabel =
+    site.hobbies.find((h) => h.id === active)?.label ?? '';
+
   // Re-armed on every slide change (auto or manual) so clicking an arrow
   // doesn't get immediately overridden by the auto-advance tick.
   useEffect(() => {
     if (!open) return;
-    const t = setTimeout(
-      () => setSlide((s) => (s + 1) % IMAGES_PER_HOBBY),
-      SLIDE_MS,
-    );
+    const t = setTimeout(() => setSlide((s) => (s + 1) % count), SLIDE_MS);
     return () => clearTimeout(t);
-  }, [slide, active, open]);
+  }, [slide, active, open, count]);
 
-  const images = placeholderImages(active);
   const advance = (dir: 1 | -1) =>
-    setSlide((s) => (s + dir + IMAGES_PER_HOBBY) % IMAGES_PER_HOBBY);
+    setSlide((s) => (s + dir + count) % count);
 
   return (
-    <div className='relative' onMouseLeave={() => setOpen(false)}>
+    <div
+      className='relative'
+      onMouseEnter={cancelClose}
+      onMouseLeave={scheduleClose}
+    >
       <div className='flex flex-nowrap gap-2 overflow-x-auto pb-1'>
         {site.hobbies.map((hobby) => (
           <button
@@ -145,8 +174,10 @@ export default function HobbyShowcase() {
         ))}
       </div>
 
+      {/* pb-3 (not mb-3) so this wrapper's box bridges the visual gap down to
+          the pills — the mouse never crosses dead space on the way up. */}
       <div
-        className={`absolute bottom-full left-0 z-20 mb-3 w-full max-w-sm transition-all duration-300 ease-out ${
+        className={`absolute bottom-full left-0 z-20 w-full max-w-sm pb-3 transition-all duration-300 ease-out ${
           open
             ? 'translate-y-0 opacity-100'
             : 'pointer-events-none translate-y-2 opacity-0'
@@ -154,12 +185,13 @@ export default function HobbyShowcase() {
       >
         <div className='relative aspect-4/5 w-full overflow-hidden rounded-2xl border border-line bg-surface shadow-xl shadow-black/20'>
             {images.map((src, i) => (
-              // eslint-disable-next-line @next/next/no-img-element -- placeholder imagery, swapped for real photos later
-              <img
+              <Image
                 key={src}
                 src={src}
-                alt=''
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                alt={`${activeLabel} — finished piece ${i + 1}`}
+                fill
+                sizes='(max-width: 400px) 100vw, 384px'
+                className={`object-cover transition-opacity duration-700 ${
                   i === slide ? 'opacity-100' : 'opacity-0'
                 }`}
               />

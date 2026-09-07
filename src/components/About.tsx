@@ -14,11 +14,10 @@ export default function About() {
       </Reveal>
       <div className='grid grid-cols-1 gap-10 md:grid-cols-2 md:items-start'>
         <Reveal>
-          {/* Placeholder photo — swap the src (and alt) for a real one */}
           <div className='relative mx-auto aspect-square w-full overflow-hidden rounded-2xl border border-line'>
             <Image
-              src='https://static.vecteezy.com/system/resources/previews/057/068/323/large_2x/single-fresh-red-strawberry-on-table-green-background-food-fruit-sweet-macro-juicy-plant-image-photo.jpg'
-              alt='Placeholder photo'
+              src='/about/portrait.jpg'
+              alt={`${site.firstName} ${site.lastName}`}
               fill
               sizes='(min-width: 768px) 50vw, 100vw'
               className='object-cover'

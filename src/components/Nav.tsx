@@ -106,14 +106,14 @@ export function Nav() {
               aria-label='Email'
               className='grid size-9.5 place-items-center rounded-full bg-ink text-paper transition-transform hover:-translate-y-0.5 hover:scale-105 sm:size-10.5'
             >
-              <MailIcon className='size-[18px]' />
+              <MailIcon className='size-4.5' />
             </a>
           </div>
         </div>
       </nav>
 
       <div
-        className={`sheet fixed inset-x-0 top-0 z-50 border-b border-line bg-paper px-6 pt-[98px] pb-8 lg:hidden ${
+        className={`sheet fixed inset-x-0 top-0 z-50 border-b border-line bg-paper px-6 pt-24.5 pb-8 lg:hidden ${
           open ? 'sheet-open' : ''
         }`}
       >

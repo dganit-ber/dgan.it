@@ -1,11 +1,21 @@
 import type { Metadata } from 'next';
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import CaseStudyNav from '../../../components/CaseStudyNav';
 import CaseStudyTabs from '../../../components/CaseStudyTabs';
-import MediaPlaceholder from '../../../components/MediaPlaceholder';
 import PageShell from '../../../components/PageShell';
 import Reveal from '../../../components/Reveal';
 import { site } from '../../site.config';
+
+import {
+  assetFive,
+  assetFour,
+  assetOne,
+  assetSix,
+  assetThree,
+  assetTwo,
+  demoVideo,
+} from './assets/assets';
 
 export const metadata: Metadata = {
   title: `The Fan Fiction Library — ${site.firstName} ${site.lastName}`,
@@ -83,6 +93,65 @@ function Chip({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Figure({
+  src,
+  alt,
+  className = '',
+  fit = 'cover',
+  unoptimized = false,
+  priority = false,
+}: {
+  src: StaticImageData;
+  alt: string;
+  className?: string;
+  fit?: 'cover' | 'contain';
+  unoptimized?: boolean;
+  priority?: boolean;
+}) {
+  return (
+    <Reveal
+      className={`relative overflow-hidden rounded-lg border border-line bg-surface ${className}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes='(min-width: 1024px) 720px, 100vw'
+        className={fit === 'contain' ? 'object-contain' : 'object-cover'}
+        unoptimized={unoptimized}
+        priority={priority}
+      />
+    </Reveal>
+  );
+}
+
+function Video({
+  src,
+  className = '',
+}: {
+  src: { mp4: string; webm: string; poster?: string };
+  className?: string;
+}) {
+  return (
+    <Reveal
+      className={`relative overflow-hidden rounded-lg border border-line bg-surface ${className}`}
+    >
+      <video
+        className='absolute inset-0 h-full w-full object-cover'
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload='metadata'
+        poster={src.poster}
+      >
+        <source src={src.webm} type='video/webm' />
+        <source src={src.mp4} type='video/mp4' />
+      </video>
+    </Reveal>
+  );
+}
+
 function DecisionEntry({
   title,
   cause,
@@ -154,6 +223,11 @@ export default function FfLibraryCaseStudy() {
                 <h1 className='font-display text-4xl font-bold tracking-[-0.02em] text-accent sm:text-5xl'>
                   A reading list for a site that never had one
                 </h1>
+                <p className='mt-5 max-w-[56ch] border-l-2 border-accent/40 pl-4 text-sm leading-relaxed text-mute'>
+                  The creator of this website strongly objects to J.K.
+                  Rowling&rsquo;s politics, opinions, and activism, and is a
+                  proud member of the LGBTQIA+ community.
+                </p>
                 <p className='mt-5 max-w-[56ch] text-lg leading-relaxed text-mute'>
                   Archive of Our Own hosts millions of stories and gives readers
                   one flat list of bookmarks to manage them with. The Fan
@@ -223,11 +297,11 @@ export default function FfLibraryCaseStudy() {
                   </a>
                 </div>
 
-                <MediaPlaceholder
-                  className='mt-11 aspect-video'
-                  tag='Media placeholder — 01'
-                  what='Hero shot: a collection page on desktop, populated with real work cards.'
-                  spec='16:9 · 1920×1080 · PNG or WebP'
+                <Figure
+                  className='mt-11 aspect-2/1'
+                  src={assetOne}
+                  alt='A ff-library collection page on desktop, populated with real work cards.'
+                  priority
                 />
               </Reveal>
             </div>
@@ -337,11 +411,10 @@ export default function FfLibraryCaseStudy() {
                       </p>
                     </Block>
 
-                    <MediaPlaceholder
-                      className='mb-8 aspect-[16/7]'
-                      tag='Media placeholder — 02'
-                      what='Design system strip: colour swatches with token names, the type scale, and three work cards in different states (unread / currently reading / completed).'
-                      spec='16:7 · exported from Figma or built as a static page'
+                    <Figure
+                      className='mb-8 aspect-16/7'
+                      src={assetTwo}
+                      alt='The ff-library design system: colour swatches with token names, the type scale, and work cards in unread, currently-reading, and completed states.'
                     />
 
                     <Block title='The work card'>
@@ -395,17 +468,15 @@ export default function FfLibraryCaseStudy() {
                     </Block>
 
                     <div className='mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2'>
-                      <MediaPlaceholder
+                      <Figure
                         className='aspect-9/16'
-                        tag='Media placeholder — 03'
-                        what='Mobile: collection page, cards stacked.'
-                        spec='9:16 · device frame optional'
+                        src={assetThree}
+                        alt='ff-library on mobile: a collection page with work cards stacked vertically.'
                       />
-                      <MediaPlaceholder
+                      <Figure
                         className='aspect-9/16'
-                        tag='Media placeholder — 04'
-                        what='Mobile: work card menu open with the note dialog on top — the portal fix in action.'
-                        spec='9:16 · device frame optional'
+                        src={assetFour}
+                        alt="ff-library on mobile: a work card's menu open with the note dialog layered on top — the portal fix in action."
                       />
                     </div>
 
@@ -422,11 +493,10 @@ export default function FfLibraryCaseStudy() {
                       </p>
                     </Block>
 
-                    <MediaPlaceholder
-                      className='mb-8 aspect-4/3'
-                      tag='Media placeholder — 05'
-                      what='An exported share card, ideally shown next to the live card it was generated from.'
-                      spec='4:3 · PNG'
+                    <Figure
+                      className='mb-8 aspect-2/1'
+                      src={assetFive}
+                      alt='An exported share card next to the live work card it was generated from.'
                     />
 
                     <Block title='The extension UI'>
@@ -452,11 +522,12 @@ export default function FfLibraryCaseStudy() {
                       <Chip>Vercel</Chip>
                     </div>
 
-                    <MediaPlaceholder
+                    <Figure
                       className='mb-8 aspect-16/7'
-                      tag='Media placeholder — 06'
-                      what='Architecture diagram: browser + extension → Next.js (server components, server actions, extension API routes) → Supabase, with the AO3 scrape path and Resend branching off.'
-                      spec='16:7 · SVG preferred so it scales'
+                      src={assetSix}
+                      fit='contain'
+                      unoptimized
+                      alt='Architecture diagram: the browser web app and extension talk to Next.js on Vercel (server components, server actions, extension API routes, metadata scraper), which reads and writes Supabase Postgres under Row Level Security, scrapes Archive of Our Own server-side, and sends transactional email through Resend.'
                     />
 
                     <Block title='Data model'>
@@ -636,12 +707,7 @@ export default function FfLibraryCaseStudy() {
                 </p>
               </Reveal>
 
-              <MediaPlaceholder
-                className='aspect-16/7'
-                tag='Media placeholder — 07'
-                what='Short screen recording: saving a work from an AO3 listing page and it appearing in a collection on the site. The most convincing asset on the page — worth doing well.'
-                spec='16:7 · MP4 loop, muted, autoplay · ~10s'
-              />
+              <Video className='aspect-video' src={demoVideo} />
 
               <p className='mt-11 mb-4 font-mono text-xs font-medium tracking-[0.2em] text-accent uppercase'>
                 Next
