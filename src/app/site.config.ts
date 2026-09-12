@@ -72,6 +72,25 @@ export const site = {
     { name: 'DigiDesk24', mark: 'DD', domain: null },
   ],
 
+  // Case studies — both the /projects page and the home-page carousel
+  // render from this list.
+  caseStudies: [
+    {
+      title: 'The Fan Fiction Library',
+      blurb:
+        'A reading list and browser extension for Archive of Our Own — built, shipped, and run solo. 700+ registered users, 115k+ entries indexed.',
+      href: '/projects/ff-library',
+      status: 'live' as 'live' | 'coming-soon',
+    },
+    {
+      title: 'Womentor',
+      blurb:
+        'A private mentoring platform matching women by the specific challenge they’re navigating, not job title. Deployed and browsable, currently running on mock mentor data.',
+      href: '/projects/womentor',
+      status: 'live' as 'live' | 'coming-soon',
+    },
+  ],
+
   // Careful framing: "indexed", not "saved by users" — entries include
   // scraper-seeded rows, so this reads as infrastructure, not engagement.
   proofEyebrow: 'Built it, shipped it, still running it',

@@ -64,7 +64,7 @@ export function Hero() {
         {site.tags.map((tag) => (
           <span
             key={tag}
-            className='rounded-full border border-line px-4 py-1.5 text-sm font-medium text-mute transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent'
+            className='inline-flex items-center rounded-full border border-line px-4 py-2 text-sm font-medium leading-none text-mute transition-all hover:-translate-y-0.5 hover:border-accent hover:text-accent'
           >
             {tag}
           </span>
