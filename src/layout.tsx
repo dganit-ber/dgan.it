@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Archivo, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { site } from './app/site.config';
+import { Analytics } from '@vercel/analytics/next';
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -72,6 +73,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
+      <Analytics />
       <body>{children}</body>
     </html>
   );
