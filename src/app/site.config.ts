@@ -83,6 +83,13 @@ export const site = {
       status: 'live' as 'live' | 'coming-soon',
     },
     {
+      title: 'Get Curly',
+      blurb:
+        'Photograph a shampoo label, get Clear or Skip. OCR, an ingredient matcher that lives in Postgres, and no account — a 2020 bootcamp project rebuilt six years later.',
+      href: '/projects/getcurly',
+      status: 'live' as 'live' | 'coming-soon',
+    },
+    {
       title: 'Womentor',
       blurb:
         'A private mentoring platform matching women by the specific challenge they’re navigating, not job title. Deployed and browsable, currently running on mock mentor data.',
