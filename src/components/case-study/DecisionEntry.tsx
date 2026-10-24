@@ -31,7 +31,7 @@ export const DecisionEntry = ({
         <dt className='pt-0.5 font-mono text-[10px] font-medium tracking-[0.16em] text-mute uppercase'>
           {resultLabel}
         </dt>
-        <dd className='leading-relaxed text-emerald-600'>{result}</dd>
+        <dd className='leading-relaxed text-ok'>{result}</dd>
       </dl>
     </Reveal>
   );

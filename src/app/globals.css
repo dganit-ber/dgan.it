@@ -17,6 +17,12 @@
   --color-accent-glow: rgba(139, 92, 246, 0.18);
   --color-accent-ink: #ffffff;
 
+  /* "Still running / shipped" green. Bright enough to read on the dark
+     ground; the light theme redefines it below, because this value is only
+     1.9:1 on a near-white background. */
+  --color-ok: #34d399;
+  --color-ok-dim: #10b981;
+
   /* Aliases so components written against an ink/paper naming
      (e.g. Hero) resolve to the same dark palette as everything else. */
   --color-ink: var(--color-text);
@@ -52,6 +58,11 @@
   --color-accent-dim: #6d28d9;
   --color-accent-glow: rgba(124, 58, 237, 0.14);
   --color-accent-ink: #ffffff;
+
+  /* 5.3:1 on #faf9fc — emerald-600 (#059669) is only 3.6:1 and fails for
+     anything under 24px, which is all of it. */
+  --color-ok: #047857;
+  --color-ok-dim: #065f46;
 
   --color-ink: var(--color-text);
   --color-paper: var(--color-bg);
