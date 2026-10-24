@@ -32,8 +32,8 @@ export function Hero() {
     <header
       className={`mx-auto w-full max-w-6xl shrink-0 px-6 ${ready ? 'hero-ready' : ''}`}
     >
-      <div className='flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-14'>
-        <div className='min-w-0 lg:flex-[999_1_440px]'>
+      <div className='flex flex-col items-start gap-8 lg:flex-row lg:items-stretch lg:justify-between lg:gap-14'>
+        <div className='min-w-0 lg:flex lg:flex-col lg:flex-[999_1_440px]'>
           <p className='stagger mb-1.5 text-lg font-bold tracking-[-0.015em]'>
             {site.firstName} {site.lastName}
           </p>
@@ -49,9 +49,9 @@ export function Hero() {
             </span>
           </p>
 
-          <h1 className='font-display text-[clamp(26px,7vw,54px)] leading-[1.05] font-extrabold tracking-[-0.03em] [@media(max-height:730px)]:text-[25px]'>
+          <h1 className='font-display text-[clamp(26px,7vw,54px)] leading-[1.05] font-extrabold tracking-[-0.03em] [@media(max-height:730px)]:text-[25px] mt-auto'>
             {site.headline.map((line) => (
-              <span key={line} className='hero-line block overflow-hidden'>
+              <span key={line} className='block overflow-hidden'>
                 <span>{line}</span>
               </span>
             ))}

@@ -22,7 +22,7 @@ export default function Home() {
 
           On desktop it relaxes back to `min-h` and grows with its content.
         */}
-        <section className='flex h-[100svh] flex-col gap-5 overflow-hidden pt-24 pb-5 lg:h-auto lg:min-h-[100svh] lg:justify-center lg:gap-10 lg:overflow-visible lg:pt-32 lg:pb-12'>
+        <section className='flex h-[100svh] flex-col gap-5 overflow-hidden pt-24 pb-5 lg:h-auto lg:min-h-[100svh] lg:justify-center lg:gap-10 lg:overflow-visible lg:pt-24 lg:pb-12'>
           <Hero />
           <ProductRow />
         </section>
