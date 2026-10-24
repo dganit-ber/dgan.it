@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-const SECTIONS = [
+export interface CaseStudySection {
+  id: string;
+  index: string;
+  label: string;
+}
+
+/** The shape the uniform `CaseStudy` template renders. A case study that
+ *  needs a different structure passes its own `sections` instead — see
+ *  /projects/berlin-help. */
+export const DEFAULT_SECTIONS: CaseStudySection[] = [
   { id: 'overview', index: '01', label: 'Overview' },
   { id: 'problem', index: '02', label: 'The problem' },
   { id: 'how-its-built', index: '03', label: "How it's built" },
@@ -10,7 +19,12 @@ const SECTIONS = [
   { id: 'results', index: '05', label: 'Where it stands' },
 ];
 
-export default function CaseStudyNav() {
+export default function CaseStudyNav({
+  sections = DEFAULT_SECTIONS,
+}: {
+  sections?: CaseStudySection[];
+}) {
+  const SECTIONS = sections;
   const [active, setActive] = useState(SECTIONS[0].id);
 
   useEffect(() => {
@@ -31,7 +45,7 @@ export default function CaseStudyNav() {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [SECTIONS]);
 
   return (
     <nav className='flex flex-row gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0'>

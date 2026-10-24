@@ -2,8 +2,23 @@ export const site = {
   // TODO: swap in your surname — the hero is designed to wrap onto two lines
   firstName: 'Dganit',
   lastName: 'Eger',
-  role: 'Frontend engineer.',
-  roleTail: 'I build beautiful websites.',
+  role: 'Fullstack engineer.',
+  roleTail: 'I build, ship and run my own products.',
+
+  // Above-the-fold headline. Two lines so the hero reveal animation has
+  // something to stagger.
+  headline: ["Don't read my CV.", 'Use something I built.'],
+  lede: 'Three products I designed, built and still run — frontend, API, database and the admin panel behind them.',
+
+  // Points at the featured product, so it follows `products[0]` if that
+  // changes.
+  primaryCta: { label: 'Open Womentor', href: '/projects/womentor' },
+
+  // The AI point, stated as two halves so neither reads as a boast.
+  craft: {
+    fast: 'AI gets me to a working version fast',
+    careful: "A pre-AI career gets it to something I'd sign",
+  },
   url: 'dgan.it',
   email: 'hello@dgan.it',
 
@@ -61,7 +76,14 @@ export const site = {
   ],
 
   companies: [
+    // Own products first, then employers. `domain` drives the favicon;
+    // `mark` is the monogram fallback when there's no domain or the icon
+    // fails to load.
+    { name: 'Womentor', mark: 'WM', domain: 'womentor.net' },
     { name: 'The Fan Fiction Library', mark: 'FL', domain: 'ff-library.com' },
+    // No public domain yet — falls back to the monogram badge. Add it here
+    // once Berlin Help is deployed.
+    { name: 'Berlin Help', mark: 'BH', domain: null },
     { name: 'Interhyp', mark: 'IH', domain: 'interhyp.de' },
     { name: 'McMakler', mark: 'MM', domain: 'mcmakler.de' },
     { name: 'Hochfrequenz', mark: 'HF', domain: 'hochfrequenz.de' },
@@ -76,6 +98,13 @@ export const site = {
   // render from this list.
   caseStudies: [
     {
+      title: 'Womentor',
+      blurb:
+        'A private mentoring platform matching women by the specific challenge they’re navigating, not job title. Out of demo mode, running on real data, with an admin panel behind it.',
+      href: '/projects/womentor',
+      status: 'live' as 'live' | 'coming-soon',
+    },
+    {
       title: 'The Fan Fiction Library',
       blurb:
         'A reading list and browser extension for Archive of Our Own — built, shipped, and run solo. 700+ registered users, 115k+ entries indexed.',
@@ -87,13 +116,6 @@ export const site = {
       blurb:
         'Photograph a shampoo label, get Clear or Skip. OCR, an ingredient matcher that lives in Postgres, and no account — a 2020 bootcamp project rebuilt six years later.',
       href: '/projects/getcurly',
-      status: 'live' as 'live' | 'coming-soon',
-    },
-    {
-      title: 'Womentor',
-      blurb:
-        'A private mentoring platform matching women by the specific challenge they’re navigating, not job title. Deployed and browsable, currently running on mock mentor data.',
-      href: '/projects/womentor',
       status: 'live' as 'live' | 'coming-soon',
     },
   ],
@@ -111,6 +133,8 @@ export const site = {
     title: 'Frontend Engineer / Full-Stack Developer',
     phone: '+49 176 32631449',
     location: 'Berlin, DE',
+    // Spelled out for the hero; `location` stays short for the CV header.
+    locationLong: 'Berlin, Germany',
     email: 'dganite@gmail.com',
     linkedin: 'linkedin.com/in/dganite',
 
@@ -175,6 +199,21 @@ export const site = {
     experience: [
       {
         role: 'Full-Stack Developer',
+        company: 'Womentor',
+        companyUrl: 'https://womentor.net',
+        companyNote: 'Independent Project',
+        // TODO: real start date.
+        period: '[09/2026] – Present',
+        location: 'Berlin, DE',
+        bullets: [
+          'Designed, built and launched a full-stack mentoring platform end to end — Next.js/TypeScript frontend, PostgreSQL schema, server actions and the admin surface behind it.',
+          'Enforced conversation privacy at the database layer using PostgreSQL Row Level Security, so a mistake in application code cannot expose private messages; message history is append-only by policy.',
+          'Built a matching engine that ranks mentors by challenge coverage and industry rather than job title, with capped load damping to spread requests across comparable mentors.',
+          'Shipped an admin panel for report and contact-request triage with state tracking, moving the product out of demo mode and into a live soft launch.',
+        ],
+      },
+      {
+        role: 'Full-Stack Developer',
         company: 'The Fan Fiction Library',
         companyUrl: 'https://ff-library.com',
         companyNote: 'Independent Project',
@@ -185,6 +224,22 @@ export const site = {
           'Implemented authentication and session handling, PostgreSQL schema design, and REST API routes, defining the API contracts between frontend and backend.',
           'Built a responsive, keyboard-accessible component library in React and Tailwind CSS, auto-deployed to production via a Git-based CI/CD workflow on Vercel.',
           "Developed and published two browser extensions that read data from the live page in the user's session and save it to the app via its REST API: bypassing the bot-detection that blocks server-side requests.",
+        ],
+      },
+      {
+        role: 'Full-Stack Developer',
+        company: 'Berlin Help',
+        // TODO: add the URL once it's deployed publicly.
+        companyUrl: null,
+        companyNote: 'Independent Project',
+        // TODO: real start date.
+        period: '[10 /2026] – Present',
+        location: 'Berlin, DE',
+        bullets: [
+          'Built a statically rendered Next.js/TypeScript directory of 258 free crisis, mental-health, housing and social support services across 15 topics and 12 Berlin districts, with no database or CMS.',
+          'Designed the information architecture around two questions someone in crisis can answer — where they are and what has gone wrong — instead of a search box that assumes German service vocabulary.',
+          'Modelled data provenance explicitly: every entry carries its last-verified date, and entries drawn from older official lists are flagged rather than presented as current.',
+          'Android app in development, bundling the full directory for offline use.',
         ],
       },
       {
@@ -253,3 +308,123 @@ export const site = {
 } as const;
 
 export type Social = (typeof site.socials)[number];
+
+/* ---------------------------------------------------------------------------
+   Landing-page products
+   ---------------------------------------------------------------------------
+   The three products shown above the fold. Deliberately NOT the same shape as
+   `caseStudies` above: that list is a uniform teaser used by the carousel and
+   the /projects index, where sameness is the point. Here each card argues for
+   its own product, so each one carries a different `panel`.
+
+   Order matters — it is the render order, and the first entry is featured.
+--------------------------------------------------------------------------- */
+
+export type StatusTone = 'live' | 'launching' | 'next';
+
+export type ProductPanel =
+  /** Womentor: the admin surface, as proof it is past demo stage. */
+  | {
+      kind: 'admin';
+      label: string;
+      note: string;
+      /** `fill` is a 0–1 bar width; it is decorative, not a real metric. */
+      tiles: { label: string; fill: number; accent?: boolean }[];
+    }
+  /** ff-library: what four years of maintenance actually looked like. */
+  | {
+      kind: 'changelog';
+      label: string;
+      entries: { sign: 'removed' | 'added'; text: string }[];
+    }
+  /** Berlin Help: coverage across the Bezirke, plus a sample of topics. */
+  | {
+      kind: 'coverage';
+      cells: number;
+      activeCell: number;
+      chips: string[];
+      moreLabel: string;
+    };
+
+export interface Product {
+  key: string;
+  title: string;
+  href: string;
+  /** Renders wider and accent-ringed. Use on one product only. */
+  featured?: boolean;
+  status: { label: string; tone: StatusTone };
+  lede: string;
+  panel: ProductPanel;
+  /** The "why this was hard" line. One per product, never interchangeable. */
+  craftNote: string;
+  stack: string;
+}
+
+export const products: Product[] = [
+  {
+    key: 'womentor',
+    title: 'Womentor',
+    href: '/projects/womentor',
+    featured: true,
+    status: { label: 'Soft launch', tone: 'launching' },
+    lede: "Private mentoring that matches women by the challenge they're navigating, not by job title.",
+    panel: {
+      kind: 'admin',
+      label: 'Admin panel',
+      note: 'Mine to run',
+      tiles: [
+        { label: 'Reports', fill: 0.54 },
+        { label: 'Requests', fill: 0.76, accent: true },
+        { label: 'Members', fill: 0.4 },
+      ],
+    },
+    craftNote:
+      'Out of demo mode and onto real data: matching, moderation paths, error states and an admin panel so reports and contact requests get handled — the parts a prototype skips.',
+    stack: 'Next.js · TypeScript · Postgres',
+  },
+  {
+    key: 'ff-library',
+    title: 'ff-library',
+    href: '/projects/ff-library',
+    status: { label: 'Live · 3 yrs', tone: 'live' },
+    lede: 'A reading list and browser extension for Archive of Our Own, run solo. 700+ registered users, 115k+ entries indexed.',
+    panel: {
+      kind: 'changelog',
+      label: 'Three years of upkeep - Solo',
+      entries: [
+        {
+          sign: 'removed',
+          text: 'N+1 queries traced out; stale state in server actions fixed',
+        },
+        {
+          sign: 'removed',
+          text: 'Duplicated logic pulled into hooks the app reuses',
+        },
+        {
+          sign: 'added',
+          text: 'TypeScript strict on, server/client boundaries drawn right',
+        },
+      ],
+    },
+    craftNote:
+      'Anyone can ship a v1. This is the one that taught me what it costs to keep it alive while people are using it.',
+    stack: 'Next.js · Supabase',
+  },
+  {
+    key: 'berlin-help',
+    title: 'Berlin Help',
+    href: '/projects/berlin-help',
+    status: { label: 'Android next', tone: 'next' },
+    lede: 'Free crisis, mental health, housing and social support in Berlin. Pick your Bezirk, pick what you need, get the places that actually serve you.',
+    panel: {
+      kind: 'coverage',
+      cells: 12,
+      activeCell: 2,
+      chips: ['Crisis', 'Housing', 'Money & debt'],
+      moreLabel: '+12 more',
+    },
+    craftNote:
+      '258 services, 15 topics, 12 Bezirke — every entry carrying the date it was last checked, and saying so when its source list is old. The code was the easy part; keeping a directory honest is the work.',
+    stack: 'Next.js · TypeScript',
+  },
+];
