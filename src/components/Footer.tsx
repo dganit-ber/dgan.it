@@ -22,12 +22,12 @@ export default function Footer() {
           >
             Impressum
           </Link>
-          <Link
+          {/* <Link
             href='/contact'
             className='text-sm font-medium text-accent transition-colors hover:underline'
           >
             Contact
-          </Link>
+          </Link> */}
           <div className='flex items-center gap-1.5'>
             {site.socials.map((social) => {
               const Icon = iconMap[social.icon as IconName];

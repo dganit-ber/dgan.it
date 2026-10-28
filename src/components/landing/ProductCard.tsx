@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import type { Product, StatusTone } from '../../app/site.config';
-import ProductPanel from './ProductPanel';
 
 /* Tone drives the status pill and the rule beside the craft note, nothing
    else. The greens are palette tokens (`ok` / `ok-dim`), not Tailwind's
@@ -48,7 +47,12 @@ function PhoneIcon() {
 
 function ArrowIcon() {
   return (
-    <svg viewBox='0 0 16 16' fill='none' aria-hidden='true' className='size-3.5'>
+    <svg
+      viewBox='0 0 16 16'
+      fill='none'
+      aria-hidden='true'
+      className='size-3.5'
+    >
       <path
         d='M3 8h10M9 4l4 4-4 4'
         stroke='currentColor'
@@ -106,8 +110,6 @@ export default function ProductCard({ product }: { product: Product }) {
       >
         {product.lede}
       </p>
-
-      <ProductPanel panel={product.panel} />
 
       {/* First thing to go when the viewport is short — the alternative is
           the swipe hint falling off the bottom instead. */}

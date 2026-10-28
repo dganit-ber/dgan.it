@@ -3,22 +3,22 @@
 import { useEffect, useState } from 'react';
 import { LocationIcon } from '../icons';
 import { site } from '../../app/site.config';
-import HeroAside from './HeroAside';
 
 /**
- * Above-the-fold hero.
+ * Above-the-fold hero: one block, nothing beside it.
  *
- * Desktop: identity and headline on the left, `HeroAside` (lede, AI/craft
- * pair, buttons) on the right, product row underneath — the whole thing sized
- * to fit a laptop screen without scrolling.
+ * The previous version put the headline on the left and a lede, two craft
+ * lines and two buttons on the right. Feedback was that nobody knew where to
+ * look — correctly, because four things were asking at once. Now the name is
+ * the only large element on the screen and everything else is visibly
+ * subordinate to it.
  *
- * Mobile: identity and headline only. The aside is rendered by the page
- * *after* the product row instead, so the first screenful is name, headline
- * and work. See `HeroAside` for why it exists as its own component.
+ * `max-w-[20ch]` is doing real work: it forces the name and tagline to wrap
+ * into a tight column instead of running the width of the page, which is what
+ * makes them read as one block rather than two stacked rows.
  *
- * The headline is the only animated element: each line slides up out of its
- * own clipping mask (`.hero-line` in globals.css) and the rest fades in behind
- * it via `.stagger`.
+ * The name animates in line by line (`.hero-line` in globals.css clips each
+ * one); the eyebrow and tagline fade in behind it via `.stagger`.
  */
 export function Hero() {
   const [ready, setReady] = useState(false);
@@ -32,33 +32,26 @@ export function Hero() {
     <header
       className={`mx-auto w-full max-w-6xl shrink-0 px-6 ${ready ? 'hero-ready' : ''}`}
     >
-      <div className='flex flex-col items-start gap-8 lg:flex-row lg:items-stretch lg:justify-between lg:gap-14'>
-        <div className='min-w-0 lg:flex lg:flex-col lg:flex-[999_1_440px]'>
-          <p className='stagger mb-1.5 text-lg font-bold tracking-[-0.015em]'>
+      <div className='max-w-[40ch]'>
+        <h1 className='hero-line mb-4 block overflow-hidden font-display text-[clamp(40px,5.4vw,76px)] leading-[0.98] font-extrabold tracking-[-0.035em]'>
+          <span>
             {site.firstName} {site.lastName}
-          </p>
+          </span>
+        </h1>
+        <p className='stagger my-5 flex flex-wrap items-center gap-x-3.5  font-mono text-xs tracking-[0.1em] text-accent uppercase'>
+          <span>{site.role.replace(/\.$/, '')}</span>
+          <span aria-hidden='true' className='text-line'>
+            /
+          </span>
+          <span className='inline-flex items-center gap-1.5'>
+            <LocationIcon className='size-3.5' />
+            {site.cv.locationLong}
+          </span>
+        </p>
 
-          <p className='stagger mb-3.5 flex flex-wrap items-center gap-x-3.5 gap-y-2 font-mono text-xs tracking-[0.09em] text-accent uppercase'>
-            <span>{site.role.replace(/\.$/, '')}</span>
-            <span aria-hidden='true' className='text-line'>
-              /
-            </span>
-            <span className='inline-flex items-center gap-1.5'>
-              <LocationIcon className='size-3.5' />
-              {site.cv.locationLong}
-            </span>
-          </p>
-
-          <h1 className='font-display text-[clamp(26px,7vw,54px)] leading-[1.05] font-extrabold tracking-[-0.03em] [@media(max-height:730px)]:text-[25px] mt-auto'>
-            {site.headline.map((line) => (
-              <span key={line} className='block overflow-hidden'>
-                <span>{line}</span>
-              </span>
-            ))}
-          </h1>
-        </div>
-
-        <HeroAside className='stagger hidden min-w-0 lg:block lg:max-w-[520px] lg:flex-[1_1_400px]' />
+        <p className='stagger max-w-[16ch] text-[clamp(20px,2.1vw,29px)] leading-[1.3] font-medium tracking-[-0.015em] text-text-muted mt-4'>
+          {site.tagline}
+        </p>
       </div>
     </header>
   );

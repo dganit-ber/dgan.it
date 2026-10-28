@@ -1,8 +1,8 @@
 import CompanyMarquee from '../components/CompanyMarquee';
 import CvPreview from '../components/CvPreview';
 import { Hero } from '../components/landing/Hero';
-import HeroAside from '../components/landing/HeroAside';
-import ProductRow from '../components/landing/ProductRow';
+import HeroActions from '../components/landing/HeroActions';
+import ProductList from '../components/landing/ProductList';
 import PageShell from '../components/PageShell';
 
 export default function Home() {
@@ -10,32 +10,31 @@ export default function Home() {
     <PageShell>
       <main>
         {/*
-          The landing screen.
+          The landing screen: name, three products, one action, the employer
+          strip. Everything else is below the fold.
 
-          On mobile this is a hard `h-[100svh]` box so the swipe hint is on
-          screen at any height. Three things make that safe:
+          Desktop is `min-h` rather than a hard height so a short window
+          scrolls instead of clipping, with the first three blocks optically
+          centred and the strip pinned to the bottom (`mt-auto` on it, inside
+          a flex column).
 
-          - `overflow-hidden`, so if anything does outgrow the box it clips
-            instead of bleeding over the sections below it;
-          - `shrink-0` on the hero, so only the product rail gives up height;
-          - `pt-24`, which clears the fixed navbar (~72px) with room to spare.
-
-          On desktop it relaxes back to `min-h` and grows with its content.
+          Mobile stays `min-h` too — the strip falling just below the fold on
+          a small phone is a fair trade for never clipping the tagline. The
+          earlier hard-locked `h-[100svh]` version cost a visible craft note
+          on short screens and still overflowed when a line wrapped.
         */}
-        <section className='flex h-[100svh] flex-col gap-5 overflow-hidden pt-24 pb-5 lg:h-auto lg:min-h-[100svh] lg:justify-center lg:gap-10 lg:overflow-visible lg:pt-24 lg:pb-12'>
+        <section className='flex min-h-[100svh] flex-col gap-10 pt-24 pb-6 lg:gap-11 lg:pt-28 lg:pb-8'>
           <Hero />
-          <ProductRow />
+          <ProductList />
+          <HeroActions />
+          <CompanyMarquee
+            variant='strip'
+            kind='employer'
+            /* Employers only — the three products are listed directly above,
+               so including them here would repeat them on one screen. */
+          />
         </section>
 
-        {/*
-          Below the fold on mobile. This sits OUTSIDE the locked section on
-          purpose — inside it, the lede and buttons ate the height the product
-          cards needed. On desktop it's hidden here and rendered inside `Hero`
-          instead, beside the headline.
-        */}
-        <HeroAside className='mx-auto w-full max-w-6xl px-6 pt-10 pb-4 lg:hidden' />
-
-        <CompanyMarquee />
         <CvPreview />
       </main>
     </PageShell>
