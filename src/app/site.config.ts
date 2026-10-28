@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export const site = {
   // TODO: swap in your surname — the hero is designed to wrap onto two lines
   firstName: 'Dganit',
@@ -343,6 +345,7 @@ export type Social = (typeof site.socials)[number];
 export type StatusTone = 'live' | 'launching' | 'next';
 
 export interface Product {
+  stack?: ReactNode;
   key: string;
   title: string;
   href: string;
@@ -350,9 +353,11 @@ export interface Product {
    *  that the thing is real. Keep it to three words. */
   status: { label: string; tone: StatusTone };
   /** Exactly one sentence. If it needs two, the product page is the place. */
-  lede: string;
+  lede?: string;
   featured?: string;
   chip?: string;
+  craftNote?: string;
+  panel?: any;
 }
 
 /**
