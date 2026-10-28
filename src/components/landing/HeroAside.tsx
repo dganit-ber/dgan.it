@@ -3,7 +3,12 @@ import { site } from '../../app/site.config';
 
 function BoltIcon() {
   return (
-    <svg viewBox='0 0 24 24' fill='none' aria-hidden='true' className='size-3.5'>
+    <svg
+      viewBox='0 0 24 24'
+      fill='none'
+      aria-hidden='true'
+      className='size-3.5'
+    >
       <path
         d='M13 2.5L4.5 13.8h6L11 21.5l8.5-11.3h-6L13 2.5z'
         stroke='currentColor'
@@ -16,7 +21,12 @@ function BoltIcon() {
 
 function AnvilIcon() {
   return (
-    <svg viewBox='0 0 24 24' fill='none' aria-hidden='true' className='size-3.5'>
+    <svg
+      viewBox='0 0 24 24'
+      fill='none'
+      aria-hidden='true'
+      className='size-3.5'
+    >
       <path
         d='M9.5 3.5h5M12 3.5v4M5.5 20.5h13M6.5 20.5l3-9h5l3 9'
         stroke='currentColor'
@@ -54,13 +64,13 @@ export default function HeroAside({ className = '' }: { className?: string }) {
           <span className='text-accent'>
             <BoltIcon />
           </span>
-          {site.craft.fast}
+          {site.craft}
         </li>
         <li className='flex items-center gap-2 font-mono text-xs text-text'>
           <span className='text-ok'>
             <AnvilIcon />
           </span>
-          {site.craft.careful}
+          {site.craft}
         </li>
       </ul>
 

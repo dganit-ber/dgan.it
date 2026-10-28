@@ -5,20 +5,21 @@ export const site = {
   role: 'Fullstack engineer.',
   roleTail: 'I build, ship and run my own products.',
 
-  // Above-the-fold headline. Two lines so the hero reveal animation has
-  // something to stagger.
-  headline: ["Don't read my CV.", 'Use something I built.'],
-  lede: 'Three products I designed, built and still run — frontend, API, database and the admin panel behind them.',
+  // The hero is the NAME, at display scale — it's the one thing on the first
+  // screen that should be unmissable. The tagline sits under it as a second
+  // voice, not a competing headline.
+  tagline: "I could tell you, I'd rather show you instead.",
 
-  // Points at the featured product, so it follows `products[0]` if that
-  // changes.
-  primaryCta: { label: 'Open Womentor', href: '/projects/womentor' },
+  // Label over the three products. Three words, past tense, no adjectives.
+  proofLabel: 'Built, shipped, running',
 
-  // The AI point, stated as two halves so neither reads as a boast.
-  craft: {
-    fast: 'AI gets me to a working version fast',
-    careful: "A pre-AI career gets it to something I'd sign",
-  },
+  // One action on the first screen. More than one is a question, not a path.
+  primaryCta: { label: 'Read the CV', href: '/cv' },
+
+  // The AI point, as a single quiet aside beside the CTA. It's a claim rather
+  // than evidence, so it never competes with the products above it.
+  craft:
+    "AI gets me to a working version fast. A pre-AI career gets it to something I'd sign.",
   url: 'dgan.it',
   email: 'hello@dgan.it',
 
@@ -75,23 +76,42 @@ export const site = {
     { id: 'water-marbling', label: 'Water Marbling' },
   ],
 
+  // `domain` drives the favicon; `mark` is the monogram fallback when there's
+  // no domain or the icon fails to load.
+  //
+  // `kind` exists so a surface can show one group or both. The strip under
+  // the hero shows employers only, because the three products are listed
+  // directly above it — repeating them would say the same thing twice on one
+  // screen, and it keeps the "companies I've worked with" heading true.
   companies: [
-    // Own products first, then employers. `domain` drives the favicon;
-    // `mark` is the monogram fallback when there's no domain or the icon
-    // fails to load.
-    { name: 'Womentor', mark: 'WM', domain: 'womentor.net' },
-    { name: 'The Fan Fiction Library', mark: 'FL', domain: 'ff-library.com' },
+    { kind: 'product', name: 'Womentor', mark: 'WM', domain: 'womentor.net' },
+    {
+      kind: 'product',
+      name: 'The Fan Fiction Library',
+      mark: 'FL',
+      domain: 'ff-library.com',
+    },
     // No public domain yet — falls back to the monogram badge. Add it here
     // once Berlin Help is deployed.
-    { name: 'Berlin Help', mark: 'BH', domain: null },
-    { name: 'Interhyp', mark: 'IH', domain: 'interhyp.de' },
-    { name: 'McMakler', mark: 'MM', domain: 'mcmakler.de' },
-    { name: 'Hochfrequenz', mark: 'HF', domain: 'hochfrequenz.de' },
-    { name: 'Lieferando', mark: 'LF', domain: 'lieferando.de' },
-    { name: 'Auto1', mark: 'A1', domain: 'auto1-group.com' },
+    { kind: 'product', name: 'Berlin Help', mark: 'BH', domain: null },
+    { kind: 'employer', name: 'Interhyp', mark: 'IH', domain: 'interhyp.de' },
+    { kind: 'employer', name: 'McMakler', mark: 'MM', domain: 'mcmakler.de' },
+    {
+      kind: 'employer',
+      name: 'Hochfrequenz',
+      mark: 'HF',
+      domain: 'hochfrequenz.de',
+    },
+    {
+      kind: 'employer',
+      name: 'Lieferando',
+      mark: 'LF',
+      domain: 'lieferando.de',
+    },
+    { kind: 'employer', name: 'Auto1', mark: 'A1', domain: 'auto1-group.com' },
     // No confirmed domain — search results kept confusing it with the
     // unrelated "Digistore24". Falls back to the monogram badge.
-    { name: 'DigiDesk24', mark: 'DD', domain: null },
+    { kind: 'employer', name: 'DigiDesk24', mark: 'DD', domain: null },
   ],
 
   // Case studies — both the /projects page and the home-page carousel
@@ -203,7 +223,7 @@ export const site = {
         companyUrl: 'https://womentor.net',
         companyNote: 'Independent Project',
         // TODO: real start date.
-        period: '[09/2026] – Present',
+        period: '[MM/YYYY] – Present',
         location: 'Berlin, DE',
         bullets: [
           'Designed, built and launched a full-stack mentoring platform end to end — Next.js/TypeScript frontend, PostgreSQL schema, server actions and the admin surface behind it.',
@@ -233,7 +253,7 @@ export const site = {
         companyUrl: null,
         companyNote: 'Independent Project',
         // TODO: real start date.
-        period: '[10 /2026] – Present',
+        period: '[MM/YYYY] – Present',
         location: 'Berlin, DE',
         bullets: [
           'Built a statically rendered Next.js/TypeScript directory of 258 free crisis, mental-health, housing and social support services across 15 topics and 12 Berlin districts, with no database or CMS.',
@@ -322,109 +342,48 @@ export type Social = (typeof site.socials)[number];
 
 export type StatusTone = 'live' | 'launching' | 'next';
 
-export type ProductPanel =
-  /** Womentor: the admin surface, as proof it is past demo stage. */
-  | {
-      kind: 'admin';
-      label: string;
-      note: string;
-      /** `fill` is a 0–1 bar width; it is decorative, not a real metric. */
-      tiles: { label: string; fill: number; accent?: boolean }[];
-    }
-  /** ff-library: what four years of maintenance actually looked like. */
-  | {
-      kind: 'changelog';
-      label: string;
-      entries: { sign: 'removed' | 'added'; text: string }[];
-    }
-  /** Berlin Help: coverage across the Bezirke, plus a sample of topics. */
-  | {
-      kind: 'coverage';
-      cells: number;
-      activeCell: number;
-      chips: string[];
-      moreLabel: string;
-    };
-
 export interface Product {
   key: string;
   title: string;
   href: string;
-  /** Renders wider and accent-ringed. Use on one product only. */
-  featured?: boolean;
+  /** One short mono marker beside the name — the cheapest available proof
+   *  that the thing is real. Keep it to three words. */
   status: { label: string; tone: StatusTone };
+  /** Exactly one sentence. If it needs two, the product page is the place. */
   lede: string;
-  panel: ProductPanel;
-  /** The "why this was hard" line. One per product, never interchangeable. */
-  craftNote: string;
-  stack: string;
+  featured?: string;
+  chip?: string;
 }
 
+/**
+ * The three products, in the order they appear under the hero.
+ *
+ * Deliberately thin. An earlier version carried a mini-UI panel, a stack line
+ * and a "why this was hard" note per product; the result was three dense
+ * cards that competed with each other and with the hero, and nobody knew
+ * where to look. The depth moved to the case studies, where someone who
+ * wants it goes looking.
+ */
 export const products: Product[] = [
   {
     key: 'womentor',
     title: 'Womentor',
     href: '/projects/womentor',
-    featured: true,
     status: { label: 'Soft launch', tone: 'launching' },
-    lede: "Private mentoring that matches women by the challenge they're navigating, not by job title.",
-    panel: {
-      kind: 'admin',
-      label: 'Admin panel',
-      note: 'Mine to run',
-      tiles: [
-        { label: 'Reports', fill: 0.54 },
-        { label: 'Requests', fill: 0.76, accent: true },
-        { label: 'Members', fill: 0.4 },
-      ],
-    },
-    craftNote:
-      'Out of demo mode and onto real data: matching, moderation paths, error states and an admin panel so reports and contact requests get handled — the parts a prototype skips.',
-    stack: 'Next.js · TypeScript · Postgres',
+    lede: "Private mentoring, matched by the thing you're actually stuck on.",
   },
   {
     key: 'ff-library',
     title: 'ff-library',
     href: '/projects/ff-library',
-    status: { label: 'Live · 3 yrs', tone: 'live' },
-    lede: 'A reading list and browser extension for Archive of Our Own, run solo. 700+ registered users, 115k+ entries indexed.',
-    panel: {
-      kind: 'changelog',
-      label: 'Three years of upkeep - Solo',
-      entries: [
-        {
-          sign: 'removed',
-          text: 'N+1 queries traced out; stale state in server actions fixed',
-        },
-        {
-          sign: 'removed',
-          text: 'Duplicated logic pulled into hooks the app reuses',
-        },
-        {
-          sign: 'added',
-          text: 'TypeScript strict on, server/client boundaries drawn right',
-        },
-      ],
-    },
-    craftNote:
-      'Anyone can ship a v1. This is the one that taught me what it costs to keep it alive while people are using it.',
-    stack: 'Next.js · Supabase',
+    status: { label: '700+ users', tone: 'live' },
+    lede: 'A reading library and browser extension, run solo for three years.',
   },
   {
     key: 'berlin-help',
     title: 'Berlin Help',
     href: '/projects/berlin-help',
-    status: { label: 'Android next', tone: 'next' },
-    lede: 'Free crisis, mental health, housing and social support in Berlin. Pick your Bezirk, pick what you need, get the places that actually serve you.',
-    panel: {
-      kind: 'coverage',
-      cells: 12,
-      activeCell: 2,
-      chips: ['Crisis', 'Housing', 'Money & debt'],
-      moreLabel: '+12 more',
-    },
-    craftNote:
-      '258 services, 15 topics, 12 Bezirke — every entry carrying the date it was last checked, and saying so when its source list is old. The code was the easy part; keeping a directory honest is the work.',
-    stack: 'Next.js · TypeScript',
+    status: { label: '', tone: 'next' },
+    lede: '258 free support services in Berlin, sorted by where you are.',
   },
 ];
