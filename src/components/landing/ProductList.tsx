@@ -72,7 +72,7 @@ export default function ProductList() {
                 {product.lede}
               </span>
 
-              <span className='inline-flex min-h-7.5 items-center gap-1.5 text-md font-semibold text-accent hover:text-lg'>
+              <span className='inline-flex min-h-7.5 rounded-xl items-center gap-1.5 text-md font-semibold hover:bg-accent hover:text-white text-accent p-2'>
                 Case study
                 <ArrowIcon />
               </span>
